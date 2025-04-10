@@ -15,7 +15,7 @@ namespace GrpcConnect.Services
         {
             return Task.FromResult(new HelloReply
             {
-                Message = "Hello " + request.Name + ", the time is " + DateTime.UtcNow.ToLocalTime().ToString("hh:mm tt") + "!"
+                Message = "Hello " + request.Name + ", the time is " + DateTime.Now.ToLocalTime().ToString()
             });
         }
     }
