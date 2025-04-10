@@ -13,9 +13,11 @@ namespace GrpcConnect.Services
 
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
+            TimeZoneInfo londonTime = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
+
             return Task.FromResult(new HelloReply
-            {
-                Message = "Hello " + request.Name + ", the time is " + DateTime.Now.ToLocalTime().ToString()
+            {                
+                Message = "Hello " + request.Name + ", the time is " + TimeZoneInfo.ConvertTime(DateTime.UtcNow, londonTime).ToString("hh:mm tt") + " in London."
             });
         }
     }
