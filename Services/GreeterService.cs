@@ -11,13 +11,13 @@ namespace GrpcConnect.Services
             _logger = logger;
         }
 
-        public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
+        public async override Task<HelloReply> SayHelloAsync(HelloRequest request, ServerCallContext context)
         {
             TimeZoneInfo londonTime = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
 
-            return Task.FromResult(new HelloReply
+            return await Task.FromResult(new HelloReply
             {                
-                Message = "Hello " + request.Name + ", the time is " + TimeZoneInfo.ConvertTime(DateTime.UtcNow, londonTime).ToString("hh:mm tt") + " in London."
+                Message = "Hello " + request.Name + ", the time is " + TimeZoneInfo.ConvertTime(DateTime.UtcNow, londonTime).ToString("hh:mm tt") + " in London sunshine."
             });
         }
     }
