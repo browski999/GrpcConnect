@@ -22,7 +22,7 @@ namespace GrpcConnect.Services
 
             return await Task.FromResult(new HelloReply
             {                
-                Message = "Hello " + request.Name + ", the time is" + TimeZoneInfo.ConvertTime(DateTime.UtcNow, londonTime).ToString("hh:mm tt") + " in London sunshine."
+                Message = "Hello " + request.Name + ", the time is now " + TimeZoneInfo.ConvertTime(DateTime.UtcNow, londonTime).ToString("hh:mm tt") + " in London sunshine."
             });
         }
 
