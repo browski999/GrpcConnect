@@ -6,10 +6,6 @@ package greet;
 
 // The greeting service definition.
 service Greeter {
-  // Sends a greeting
-  rpc SayHelloAsync (HelloRequest) returns (HelloReply);
-  rpc SayHelloStream (HelloRequest) returns (stream HelloReply);
-  rpc SayHelloClientStream (stream HelloRequest) returns (HelloReply);
   rpc SayHelloBiStream (stream HelloRequest) returns (stream HelloReply);
 }
 
