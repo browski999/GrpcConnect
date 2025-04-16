@@ -1,10 +1,5 @@
-using Grpc.Core;
-using GrpcConnect;
-using Microsoft.AspNetCore.HttpOverrides;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Channels;
+using Grpc.Core;
 
 namespace GrpcConnect.Services
 {
@@ -14,55 +9,7 @@ namespace GrpcConnect.Services
         public GreeterService(ILogger<GreeterService> logger)
         {
             _logger = logger;
-        }
-
-        public async override Task<HelloReply> SayHelloAsync(HelloRequest request, ServerCallContext context)
-        {
-            TimeZoneInfo londonTime = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
-
-            return await Task.FromResult(new HelloReply
-            {                
-                Message = "Hello " + request.Name + ", the time is now " + TimeZoneInfo.ConvertTime(DateTime.UtcNow, londonTime).ToString("hh:mm tt") + " in London sunshine."
-            });
-        }
-
-        public override async Task SayHelloStream(HelloRequest request, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
-        {
-            foreach (var name in request.Name.Split(","))
-            {
-                await responseStream.WriteAsync(new HelloReply()
-                {
-                    Message = "#" + name
-                });
-
-                await Task.Delay(1000);
-            }
-        }
-
-        public override async Task<HelloReply> SayHelloClientStream(IAsyncStreamReader<HelloRequest> requestStream, ServerCallContext context)
-        {
-            var inputNames = new List<string>();
-
-            await foreach (var helloRequest in requestStream.ReadAllAsync())
-            {
-                inputNames.Add(helloRequest.Name);
-            }
-
-            var sb = new StringBuilder("Hello ");
-
-            foreach (var name in inputNames)
-            {
-                sb.Append(name + ", ");
-            }
-
-            sb.Length = sb.Length - 1; // remove last comma and space
-            sb.Append("!");
-
-            return new HelloReply()
-            {
-                Message = sb.ToString()
-            };
-        }
+        }        
 
         public override async Task SayHelloBiStream(IAsyncStreamReader<HelloRequest> requestStream, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
         {
