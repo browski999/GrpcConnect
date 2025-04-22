@@ -1,4 +1,5 @@
 using GrpcConnect.Services;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace GrpcConnect
 {
@@ -7,6 +8,15 @@ namespace GrpcConnect
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.WebHost.ConfigureKestrel(serverOptions =>
+            {
+                // Set the HTTP/2 port to 8080
+                serverOptions.ListenAnyIP(8080, listenOptions =>
+                {
+                    listenOptions.Protocols = HttpProtocols.Http2;
+                });
+            });
 
             // Add services to the container.
             builder.Services.AddGrpc();
