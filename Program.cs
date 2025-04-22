@@ -15,6 +15,7 @@ namespace GrpcConnect
                 serverOptions.ListenAnyIP(8080, listenOptions =>
                 {
                     listenOptions.Protocols = HttpProtocols.Http2;
+                    listenOptions.UseHttps("certs/localhost.pfx", "Santiago1#");
                 });
             });
 
