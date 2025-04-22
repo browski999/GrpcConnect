@@ -4,8 +4,9 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER $APP_UID
 WORKDIR /app
-
+EXPOSE 8080
 EXPOSE 8081
+
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
@@ -26,8 +27,4 @@ RUN dotnet publish "./GrpcConnect.csproj" -c $BUILD_CONFIGURATION -o /app/publis
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-COPY certs/localhost.pfx ./certs/localhost.pfx
-
-EXPOSE 8080
-
 ENTRYPOINT ["dotnet", "GrpcConnect.dll"]
