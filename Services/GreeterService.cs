@@ -11,7 +11,7 @@ namespace GrpcConnect.Services
             _logger = logger;
         }        
 
-        public override async Task SayHelloBiStream(IAsyncStreamReader<HelloRequest> requestStream, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
+        public override async Task SayHelloBiStreamAsync(IAsyncStreamReader<HelloRequest> requestStream, IServerStreamWriter<HelloReply> responseStream, ServerCallContext context)
         {
             var channel = Channel.CreateUnbounded<HelloReply>();
 

@@ -6,7 +6,7 @@ package greet;
 
 // The greeting service definition.
 service Greeter {
-  rpc SayHelloBiStream (stream HelloRequest) returns (stream HelloReply);
+  rpc SayHelloBiStreamAsync (stream HelloRequest) returns (stream HelloReply);
 }
 
 // The request message containing the user's name.
